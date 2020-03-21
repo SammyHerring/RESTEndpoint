@@ -58,3 +58,6 @@ All responses will have the form of a JSON response with a tag of 'Total' follow
   "Total": "6"
 }
 ```
+
+## Assumptions
+List passed is assumed to only contain integers and no floats. Although, basic error handling has been put in place.
