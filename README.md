@@ -20,6 +20,7 @@ All responses will have the form of a JSON response with a tag of 'Total' follow
 
 **Response**
  - `200 OK` on success
+ - `400 BAD` on invalid list being passed
  
  NB: If list elements were [1, 2, 3], response of
  
