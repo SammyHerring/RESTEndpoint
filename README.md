@@ -60,4 +60,4 @@ All responses will have the form of a JSON response with a tag of 'Total' follow
 ```
 
 ## Assumptions
-List passed is assumed to only contain integers and no floats. Although, basic error handling has been put in place.
+List passed is assumed to only contain integers and no floats. Although, basic error handling has been put in place. The application was developed using a virtual environment (VENV) in Pycharm; Rather than a Docker container as the system is not expected to be deployed on scale.
