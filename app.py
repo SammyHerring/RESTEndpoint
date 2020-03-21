@@ -3,6 +3,7 @@ from flask_restplus import Api, Resource, fields
 
 #   START   |   API CONFIG
 
+
 app = Flask(__name__)
 api = Api(app, version='1.0', title='List Sum API', description='A restAPI to sum a list of integers',
           contact='Sam Herring', contact_email='sammy@traveller.coffee', ordered=True)
@@ -12,6 +13,7 @@ ns = api.namespace('total', description='Sum List Operations')  # Define 'total'
 
 
 #   START   |   API MODELS CONFIG
+
 
 # Total Model expected upon return of sum
 total_model = api.model('Total', {
@@ -29,8 +31,10 @@ list_model = api.model('List', {
 
 #   START   |   API BLUEPRINT
 
-# Define 'total' namespace main api  route
+
+# Define API 'total' Namespace
 @ns.route('/')
+# Document expected response codes
 @ns.response(200, 'Success. OK')
 @ns.response(400, 'Not ALL List Items of Type Int. BAD')
 class Total(Resource):
@@ -39,17 +43,19 @@ class Total(Resource):
     @ns.marshal_with(total_model)
     def get(self):
         numbers = generateNumberList()
+
         if checkListItemsAreInt(numbers):
             return {"Total": sum(numbers)}, 200
         else:
             api.abort(400, "Not ALL List Items of Type Int")
 
-    # POST List of Integers and Return Sum
+    # POST New List and Return Sum
     @ns.doc('list_total')
     @ns.marshal_with(total_model)
     @ns.expect(list_model)
     def post(self):
         numbers = api.payload['List']
+
         if checkListItemsAreInt(numbers):
             return {"Total": sum(numbers)}, 200
         else:
@@ -59,7 +65,38 @@ class Total(Resource):
 #   END     |   API BLUEPRINT
 
 
+#   START   |   APP ERROR HANDLERS
+
+
+@app.errorhandler(400)
+# Handle 400 Error
+def handle400Error(_error):
+    return {'Error': 'Misunderstood'}, 400
+
+
+@app.errorhandler(401)
+# Handle 401 Error
+def handle401Error(_error):
+    return {'Error': 'Unauthorised'}, 401
+
+
+@app.errorhandler(404)
+# Handle 404 Error
+def handle404Error(_error):
+    return {'Error': 'Not Found'}, 404
+
+
+@app.errorhandler(500)
+# Handle 500 Error
+def handle500Error(_error):
+    return {'Error': 'Server Error'}, 500
+
+
+#   START   |   APP ERROR HANDLERS
+
+
 #   START   |   APP LOGIC
+
 
 def generateNumberList() -> list:
     numbers_to_add = list(range(10000001))  # Function required by client scenario

@@ -1,4 +1,8 @@
-#List Sum RestAPI Endpoint
+# List Sum RestAPI Endpoint
+
+## Auto-generated Swagger Docs
+
+Run flask service and see root directory for automatically generated swagger documentation
 
 ## Usage
 
@@ -11,9 +15,9 @@ All responses will have the form of a JSON response with a tag of 'Total' follow
 }
 ```
 
-##Responses Overview
+## Responses Overview
 
-###GET List Sum Result
+### GET Default List Sum Result
 
 **Definition**
 `GET /total`
@@ -22,7 +26,32 @@ All responses will have the form of a JSON response with a tag of 'Total' follow
  - `200 OK` on success
  - `400 BAD` on invalid list being passed
  
- NB: If list elements were [1, 2, 3], response of
+ NB: Default list function ```numbers = list(range(10000001))``` provides sum result as seen below
+ 
+ ```json
+{
+  "Total": "50000005000000"
+}
+```
+
+### POST New List and Return Sum
+
+**Definition**
+`POST /total`
+ 
+**Arguments**
+ - `"List":list` a list of integers to be summed
+ 
+  ```json
+{
+  "List": "[1, 2, 3]"
+}
+```
+ 
+ **Response**
+ - `200 OK` on success
+ - `400 BAD` on invalid list being passed
+
  
  ```json
 {
